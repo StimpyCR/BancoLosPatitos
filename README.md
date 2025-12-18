@@ -1,5 +1,5 @@
-# Presencial-EquipoDinamitaBuenaOndaMaravilla
-Repositorio para el proyecto del equipo EquipoDinamitaBuenaOndaMaravilla.
+# BancoLosPatitos
+Repositorio para el proyecto del equipo BancoLosPatitos.
 Este proyecto es sobre un banco ficticio! por lo que no contiene ni se procesa informacion real
 
 Al abrir el proyecto y iniciarlo podemos ver que nos pide iniciar seccion, primero se debe de crear una cuenta, al crearla se debe de seleccionar un rol, el rol Admin contiene permisos para acceder a cualquier sector de la app, el Analista unicamente a los sectores que el necesite para hacer su labor 
