@@ -1,0 +1,107 @@
+﻿@model IEnumerable<SolucionProyectoAbstracciones.ModelosParaUI.ArchivosDeAnalisis.ArchivosDeAnalisisDto>
+
+@{
+    ViewBag.Title = "Lista de Archivos de Análisis";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Lista de Archivos de Análisis</h2>
+
+    <button type="button" class="btn btn-primary mb-0" id="btnNuevoArchivo">
+        <span class="icon">＋</span>
+        Registrar Archivo
+    </button>
+</div>
+
+<div class="table-responsive">
+    <table id="tablaArchivos" class="table table-striped table-hover w-100">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Texto del Archivo</th>
+                <th>Fuente</th>
+                <th>Fecha de Registro</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.nombre</td>
+                    <td title="@item.textoResumen">
+                        @{
+                            string texto = item.textoResumen ?? string.Empty;
+                            string textoCorto = texto.Length > 10
+                                ? texto.Substring(0, 10) + "..."
+                                : texto;
+                        }
+                        @textoCorto
+                    </td>
+                    <td>@item.fuente</td>
+                    <td>@item.fechaDeRegistro</td>
+
+                    <td>
+                        @Html.HiddenFor(modelItem => item.IdArchivo)
+
+                        <div class="btn-group btn-group-sm" role="group">
+                            <a href="#"
+                               class="btn btn-secondary btn-detalles-archivo"
+                               data-id="@item.IdArchivo">
+                                <i class="bi bi-info-circle"></i> Detalles
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Modal REGISTRAR ARCHIVO -->
+<div class="modal fade" id="modalArchivo" tabindex="-1" aria-labelledby="modalArchivoTitulo" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header text-white"
+                 style="background-color:#002B5B; border-bottom:none;">
+                <h3 class="modal-title mb-0" id="modalArchivoTitulo">Registrar Archivo</h3>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Cerrar"
+                        style="filter:brightness(0) invert(1);"></button>
+            </div>
+
+            <div class="modal-body" style="background-color: #e3e7ec;">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal DETALLES ARCHIVO -->
+<div class="modal fade" id="modalDetallesArchivo" tabindex="-1" aria-labelledby="modalDetallesArchivoTitulo" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header text-white"
+                 style="background-color:#002B5B; border-bottom:none;">
+                <h3 class="modal-title mb-0" id="modalDetallesArchivoTitulo">Detalles del Archivo</h3>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Cerrar"
+                        style="filter:brightness(0) invert(1);"></button>
+            </div>
+
+            <div class="modal-body" style="background-color: #e3e7ec;">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/Scripts/ArchivosDeAnalisis/ListarArchivos/ListarArchivos.js"></script>
+    <script src="~/Scripts/ArchivosDeAnalisis/RegistrarArchivos/RegistrarArchivos.js"></script>
+    <script src="~/Scripts/ArchivosDeAnalisis/DetallesArchivos/DetallesArchivos.js"></script>
+}

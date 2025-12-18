@@ -1,0 +1,95 @@
+﻿@model IEnumerable<SolucionProyectoAbstracciones.ModelosParaUI.PalabraClave.PalabraClaveDto>
+
+@{
+    ViewBag.Title = "ListaDePalabrasClaves";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Lista de Palabras Clave</h2>
+    <button type="button" class="btn btn-primary mb-0" id="btnNuevaPalabraClave">
+        <span class="icon">＋</span>
+        Registrar Palabra Clave
+    </button>
+</div>
+
+<div class="table-responsive">
+    <table id="tablaPalabrasClave" class="table table-striped table-hover w-100">
+        <thead>
+            <tr>
+                <th>Palabra</th>
+                <th>Orden</th>
+                <th>Fecha de Registro</th>
+                <th>Fecha de Modificación</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Palabra</td>
+                    <td>@item.Orden</td>
+                    <td>@Html.DisplayFor(modelItem => item.FechaDeRegistro)</td>
+                    <td>@Html.DisplayFor(modelItem => item.FechaDeModificacion)</td>
+                    <td>
+                        @(item.Estado ? "Activo" : "Inactivo")
+                    </td>
+                    <td>
+                        <div class="btn-group btn-group-sm" role="group">
+                            <a href="#"
+                               class="btn btn-success btn-editar-palabra-clave"
+                               data-id="@item.IdPalabra">
+                                ✏️ Editar
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal CREAR PALABRA CLAVE -->
+<div class="modal fade" id="modalPalabraClave" tabindex="-1" aria-labelledby="modalPalabraClaveTitulo" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header text-white"
+                 style="background-color:#002B5B; border-bottom:none;">
+                <h3 class="modal-title mb-0">Registrar Palabra Clave</h3>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Cerrar"
+                        style="filter:brightness(0) invert(1);"></button>
+            </div>
+
+            <div class="modal-body" style="background-color: #e3e7ec;">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal EDITAR PALABRA CLAVE -->
+<div class="modal fade" id="modalEditarPalabraClave" tabindex="-1" aria-labelledby="modalEditarPalabraClaveLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header text-white"
+                 style="background-color:#002B5B; border-bottom:none;">
+                <h3 class="modal-title mb-0">Editar Palabra Clave</h3>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Cerrar"
+                        style="filter:brightness(0) invert(1);"></button>
+            </div>
+
+            <div class="modal-body" style="background-color: #e3e7ec;">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/PalabraClave/ListarPalabraClave/ListarPalabraClave.js"></script>
+    <script src="~/Scripts/PalabraClave/RegistrarPalabraClave/RegistrarPalabraClave.js"></script>
+    <script src="~/Scripts/PalabraClave/EditarPalabraClave/EditarPalabraClave.js"></script>
+}

@@ -1,0 +1,49 @@
+﻿@model SolucionProyectoAbstracciones.ModelosParaUI.ArchivosDeAnalisis.ArchivosDeAnalisisDto
+
+@{
+    ViewBag.Title = "DetallesArchivosDeAnalisis";
+}
+
+<h2>DetallesArchivosDeAnalisis</h2>
+
+<div>
+    <h4>ArchivosDeAnalisisDto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.textoResumen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.textoResumen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fuente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fuente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fechaDeRegistro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaDeRegistro)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "ListarArchivosDeAnalisis")
+</p>

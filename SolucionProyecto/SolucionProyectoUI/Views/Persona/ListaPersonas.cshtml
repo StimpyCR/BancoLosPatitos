@@ -1,0 +1,190 @@
+﻿@model IEnumerable<SolucionProyectoAbstracciones.ModelosParaUI.Persona.PersonaDto>
+
+@{
+    ViewBag.Title = "Lista de Personas";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Lista de Personas</h2>
+    <button type="button" class="btn btn-primary mb-0" id="btnNuevaPersona">
+        <span class="icon">＋</span>
+        Registrar Persona
+    </button>
+</div>
+
+
+<div class="table-responsive">
+    <table id="tablaPersonas" class="table table-striped table-hover w-100">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Identificacion)</th>
+                <th>@Html.DisplayNameFor(model => model.TipoIdentificacion)</th>
+                <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+                <th>@Html.DisplayNameFor(model => model.PrimerApellido)</th>
+                <th>@Html.DisplayNameFor(model => model.SegundoApellido)</th>
+                <th>@Html.DisplayNameFor(model => model.estadoDeRiesgo)</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Identificacion</td>
+
+                    <td>
+                        @(item.TipoIdentificacion == 1
+                        ? "Física"
+                        : item.TipoIdentificacion == 2
+                            ? "Jurídica"
+                            : "Desconocido")
+                    </td>
+
+                    <td>@item.Nombre</td>
+                    <td>@item.PrimerApellido</td>
+                    <td>@item.SegundoApellido</td>
+                    <td>
+                        @(
+                            item.estadoDeRiesgo == 0
+                            ? "Sin análisis"
+                            : item.estadoDeRiesgo == 1
+                            ? "Bajo"
+                            : item.estadoDeRiesgo == 2
+                            ? "Medio"
+                            : item.estadoDeRiesgo == 3
+                            ? "Alto"
+                            : item.estadoDeRiesgo == 4
+                            ? "Crítico"
+                            : "N/A"
+                         )
+                    </td>
+                    <td>
+                        @(item.estado ? "Activo" : "Inactivo")
+                    </td>
+
+                    <td>
+                        <div class="btn-group btn-group-sm" role="group">
+                            <a href="#"
+                               class="btn btn-success btn-editar-persona"
+                               data-id="@item.Id">
+                                ✏️ Editar
+                            </a>
+
+                            <a href="#"
+                               class="btn btn-secondary btn-detalles-persona"
+                               data-id="@item.Id">
+                                <i class="bi bi-info-circle"></i> Detalles
+                            </a>
+
+                            @Html.ActionLink("📋 Actividades",
+                                "ListaDePersonaActividadActiva",
+                                "PersonaActividad",
+                                new { id = item.Id },
+                                new { @class = "btn btn-info" })
+
+                            <button class="btn btn-warning btn-realizar-analisis" data-id="@item.Id">
+                                📊 Análisis
+                            </button>
+
+
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal CREAR PERSONA -->
+<div class="modal fade" id="modalPersona" tabindex="-1" aria-labelledby="modalPersonaTitulo" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header text-white"
+                 style="background-color:#002B5B; border-bottom:none;">
+                <h3 class="modal-title mb-0">Registrar Persona</h3>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Cerrar"
+                        style="filter:brightness(0) invert(1);"></button>
+            </div>
+
+            <div class="modal-body" style="background-color: #e3e7ec;">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal EDITAR PERSONA -->
+<div class="modal fade" id="modalEditarPersona" tabindex="-1" aria-labelledby="modalEditarPersonaLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header text-white"
+                 style="background-color:#002B5B; border-bottom:none;">
+                <h3 class="modal-title mb-0">Editar Persona</h3>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Cerrar"
+                        style="filter:brightness(0) invert(1);"></button>
+            </div>
+
+            <div class="modal-body" style="background-color: #e3e7ec;">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal DETALLES PERSONA -->
+<div class="modal fade" id="modalDetallesPersona" tabindex="-1"
+     aria-labelledby="modalDetallesPersonaTitulo" aria-hidden="true">
+
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+
+            <div class="modal-header text-white"
+                 style="background-color:#002B5B; border-bottom:none;">
+                <h3 class="modal-title mb-0" id="modalDetallesPersonaTitulo">Detalles de la Persona</h3>
+
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Cerrar"
+                        style="filter:brightness(0) invert(1);"></button>
+            </div>
+
+            <div class="modal-body" style="background-color: #e3e7ec;">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Confirmación de ANÁLISIS -->
+<div class="modal fade" id="modalResultadoAnalisis" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Resultado del análisis</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body" id="mensajeAnalisis">
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/Scripts/Persona/DetallesPersona/DetallesPersona.js"></script>
+    <script src="~/Scripts/Persona/ListarPersonas/ListarPersonas.js"></script>
+    <script src="~/Scripts/Persona/CrearPersona/CrearPersona.js"></script>
+    <script src="~/Scripts/Persona/EditarPersona/EditarPersona.js"></script>
+    <script src="~/Scripts/Persona/ValidacionApellidos/PersonaCamposApellidos.js"></script>
+    <script src="~/Scripts/Analisis/AnalisisRealizado/AnalisisRealizado.js"></script>
+}

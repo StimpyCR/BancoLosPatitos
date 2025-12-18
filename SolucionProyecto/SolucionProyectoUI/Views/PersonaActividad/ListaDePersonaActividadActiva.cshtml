@@ -1,0 +1,89 @@
+﻿@model IEnumerable<SolucionProyectoAbstracciones.ModelosParaUI.Persona_Actividad.PersonaActividadDto>
+
+@{
+    ViewBag.Title = "ListaDePersonaActividadActiva";
+    IEnumerable<System.Web.Mvc.SelectListItem> opciones = ViewBag.Opciones as IEnumerable<System.Web.Mvc.SelectListItem>;
+    int idUsuario = ViewBag.IdUsuario != null ? (int)ViewBag.IdUsuario : 0;
+}
+
+<h2>Actividades Financieras de la Persona</h2>
+
+@if (TempData["Mensaje"] != null)
+{
+    <span id="mensajeTempData"
+          data-mensaje="@TempData["Mensaje"]"
+          data-tipo="@TempData["TipoMensaje"]"
+          data-titulo="@TempData["TituloMensaje"]"></span>
+}
+
+@using (Html.BeginForm("RegistrarActividad", "PersonaActividad", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("idUsuario", idUsuario)
+
+    <div class="form-inline mb-3" style="display: flex; align-items: center; gap: 8px;">
+        @Html.DropDownList(
+            "idActividadFinanciera",
+            opciones ?? new List<System.Web.Mvc.SelectListItem>(),
+            "-- Seleccione una actividad --",
+            new { @class = "form-control", style = "min-width:320px;", required = "required" }
+        )
+        <button type="submit" class="btn btn-primary">Agregar Actividad</button>
+    </div>
+}
+
+<div class="table-responsive">
+    <table id="tablaActividades" class="table table-striped table-hover text-center w-100">
+        <thead>
+            <tr>
+                <th class="text-center">
+                    Actividad Financiera
+                </th>
+                <th class="text-center">
+                    Nivel de Riesgo
+                </th>
+                <th class="text-center">
+                    Fecha de Registro
+                </th>
+                <th class="text-center">
+                    Acciones
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.NombreActividadFinanciera)
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.NombreRiesgo)
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.FechaDeRegistro)
+                    </td>
+                    <td class="text-center">
+                        @using (Html.BeginForm("Eliminar", "PersonaActividad", FormMethod.Post, new { style = "display:inline;" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("idActividadPersona", item.IdActividadPersona)
+                            @Html.Hidden("idUsuario", idUsuario)
+                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<a href="@Url.Action("ListaPersonas", "Persona")" class="btn btn-outline-dark mt-3">
+    <i class="bi bi-arrow-left"></i> Volver a la lista
+</a>
+
+
+@section Scripts {
+    <script src="~/Scripts/ActividadPersona/ObtenerActividadPersona.js"></script>
+}
+

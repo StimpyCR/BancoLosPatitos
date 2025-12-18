@@ -1,0 +1,75 @@
+﻿@model SolucionProyectoAbstracciones.ModelosParaUI.ActividadFinanciera.ActividadFinancieraDto
+
+@{
+    ViewBag.Title = "Registrar Actividad Financiera";
+}
+
+<h2>Registrar Actividad Financiera</h2>
+
+@using (Html.BeginForm("RegistrarActividad", "ActividadFinanciera", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Nueva Actividad Financiera</h4>
+        <hr />
+
+        @if (TempData["Mensaje"] != null)
+        {
+            <div class="alert alert-info">
+                @TempData["Mensaje"]
+            </div>
+        }
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NombreActividadFinanciera, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.NombreActividadFinanciera, new { @class = "form-control", maxlength = "30" })
+                @Html.ValidationMessageFor(model => model.NombreActividadFinanciera, "", new { @class = "text-danger" })
+                <span class="help-block">Máximo 30 caracteres</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DescripcionActividadFinanciera, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.DescripcionActividadFinanciera, new { @class = "form-control", rows = 3, maxlength = "150" })
+                @Html.ValidationMessageFor(model => model.DescripcionActividadFinanciera, "", new { @class = "text-danger" })
+                <span class="help-block">Máximo 150 caracteres</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NivelDeRiesgo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.NivelDeRiesgo,
+                    new SelectList(new[]
+                    {
+                        new { Value = 0, Text = "-- Seleccione un nivel de riesgo --" },
+                        new { Value = 1, Text = "Bajo" },
+                        new { Value = 2, Text = "Medio" },
+                        new { Value = 3, Text = "Alto" }
+                    }, "Value", "Text"),
+                    new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.NivelDeRiesgo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Registrar" class="btn btn-primary" />
+                @Html.ActionLink("Cancelar", "ListaDeActividadFinanciera", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Volver a la Lista", "ListaDeActividadFinanciera", null, new { @class = "btn btn-default" })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

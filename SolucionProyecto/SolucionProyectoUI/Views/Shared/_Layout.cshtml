@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    @{
+        string controller = ViewContext.RouteData.Values["controller"].ToString();
+        string action = ViewContext.RouteData.Values["action"].ToString();
+    }
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>@ViewBag.Title - Banco Los Patitos Ahorro — Sistema LAFT</title>
+
+    @Styles.Render("~/Content/css")
+    <link href="~/Content/Estilos/miEstilo.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+    <link href="~/Scripts/DataTable/dataTables.dataTables.min.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body class="laft-body">
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-laft shadow-sm">
+        <div class="container">
+
+            <a href="@Url.Action("Index","Home")" class="navbar-brand d-flex align-items-center">
+                <img src="~/Content/Imagenes/logo_pato.svg"
+                     alt="Logo Banco Los Patitos"
+                     class="laft-logo ms-2" />
+                <span>Banco Los Patitos Ahorro — Sistema LAFT</span>
+            </a>
+
+            <button type="button"
+                    class="navbar-toggler"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Alternar navegación">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse d-lg-flex justify-content-between" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    @if (User.IsInRole("Admin") || User.IsInRole("Analista"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link @(controller == "Persona" ? "active fw-bold" : "")"
+                               href="@Url.Action("ListaPersonas", "Persona")">
+                                Personas
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link @(controller == "ArchivoAnalisis" ? "active fw-bold" : "")"
+                               href="@Url.Action("ListarArchivosDeAnalisis", "ArchivosDeAnalisis")">
+                                Archivos
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link @(controller == "Analisis" ? "active fw-bold" : "")"
+                               href="@Url.Action("ListarAnalisis", "Analisis")">
+                                Análisis
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link @(controller == "PalabraClave" ? "active fw-bold" : "")"
+                               href="@Url.Action("ListaDePalabrasClaves", "PalabraClave")">
+                                Claves LAFT
+                            </a>
+                        </li>
+                    }
+                    @if (User.IsInRole("Admin"))
+                    {
+
+                        <li class="nav-item">
+                            <a class="nav-link @(controller == "ActividadFinanciera" ? "active fw-bold" : "")"
+                               href="@Url.Action("ListaDeActividadFinanciera", "ActividadFinanciera")">
+                                Act. Financieras
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link @(controller == "Bitacora" ? "active fw-bold" : "")"
+                               href="@Url.Action("ListaDeEventos", "Bitacora")">
+                                Bitácora
+                            </a>
+                        </li>
+                    }
+                </ul>
+
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </nav>
+
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    <footer class="footer-laft pt-4 pb-3">
+        <div class="container">
+
+            <div class="text-center mb-1">
+                <img src="~/Content/Imagenes/logo_pato.svg"
+                     alt="Logo Banco Los Patitos"
+                     class="footer-logo" />
+            </div>
+
+            <div class="row gy-3 align-items-center">
+
+                <div class="col-md-4 text-center text-md-start">
+                    <h5 class="fw-bold mb-1">Banco Los Patitos Ahorro y Crédito</h5>
+                    <p class="small mb-0">Sistema LAFT — Prevención de Lavado de Activos</p>
+                </div>
+
+                <div class="col-md-4 text-center">
+                    <a href="@Url.Action("Index","Home")" class="footer-link">Inicio</a>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Analista"))
+                    {
+                        <span> | </span><a href="@Url.Action("ListaPersonas","Persona")" class="footer-link">Personas</a>
+                        <span> | </span><a href="@Url.Action("ListaDeActividadFinanciera","ActividadFinanciera")" class="footer-link">Actividades Financieras</a>
+                        <span> | </span><a href="@Url.Action("ListaDePalabrasClaves","PalabraClave")" class="footer-link">Palabras Clave</a>
+                    }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <span> | </span><a href="@Url.Action("ListaDeEventos","Bitacora")" class="footer-link">Bitácora</a>
+                        <span> | </span><a href="@Url.Action("ListarArchivosDeAnalisis", "ArchivosDeAnalisis")" class="footer-link">Análisis de Archivos</a>
+                    }
+                </div>
+
+
+                <div class="col-md-4 text-center text-md-end">
+                    <div class="footer-social mb-2">
+                        <span class="footer-social-label me-2">Síguenos:</span>
+
+                        <a href="#" class="footer-social-link" aria-label="Facebook Banco Los Patitos">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+
+                        <a href="#" class="footer-social-link" aria-label="Instagram Banco Los Patitos">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+
+                        <a href="#" class="footer-social-link" aria-label="LinkedIn Banco Los Patitos">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
+                    </div>
+
+                    <p class="small mb-0">
+                        © @DateTime.Now.Year — Todos los derechos reservados
+                    </p>
+                </div>
+            </div>
+
+            <hr class="footer-divider mt-3 mb-3" />
+
+            <div class="row text-center small">
+                <div class="col-md-6 mb-2 mb-md-0">
+                    <a href="@Url.Action("PoliticaPrivacidad", "Legal")" class="footer-link">
+                        Política de Privacidad
+                    </a> |
+                    <a href="@Url.Action("TerminosUso", "Legal")" class="footer-link">
+                        Términos y Condiciones
+                    </a>
+                </div>
+
+                <div class="col-md-6">
+                    <span class="footer-notice">
+                        Soporte LAFT: <a href="mailto:cumplimiento@lospatitos.cr" class="footer-link">cumplimiento@lospatitos.cr</a>
+                    </span>
+                </div>
+            </div>
+
+            <div class="text-center mt-3 small footer-notice">
+                ESTE SISTEMA ES DE USO INTERNO Y EXCLUSIVO PARA ANÁLISIS Y CUMPLIMIENTO REGULATORIO
+            </div>
+
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/DataTable/dataTables.min.js"></script>
+    <script src="~/Scripts/SweetAlert/sweetalert2@11.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

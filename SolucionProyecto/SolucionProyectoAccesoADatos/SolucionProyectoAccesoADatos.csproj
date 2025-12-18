@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E90C7681-2679-4BED-89B7-230B12481EB9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SolucionProyectoAccesoADatos</RootNamespace>
+    <AssemblyName>SolucionProyectoAccesoADatos</AssemblyName>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActividadFinanciera\EditarActividadFinanciera\EditarActividadFinancieraAD.cs" />
+    <Compile Include="ActividadFinanciera\ListaActividadFinanciera\ObtenerListaActividadFinancieraAD.cs" />
+    <Compile Include="ActividadFinanciera\RegistrarActividadFinanciera\RegistrarActividadFinancieraAD.cs" />
+    <Compile Include="ActividadPersona\EliminarActividadPersona\EliminarActividadPersonaAD.cs" />
+    <Compile Include="ActividadPersona\ObtenerActividadPersonaActiva\ObtenerActividadesPersonaActivasAD.cs" />
+    <Compile Include="ActividadPersona\RegistrarActividad_Persona\RegistrarActividadPersonaAD.cs" />
+    <Compile Include="Analisis\ListarAnalisis\ListarAnalisisAD.cs" />
+    <Compile Include="Analisis\ListarAnalisis\ListarAnalisisPorPersonaAD.cs" />
+    <Compile Include="Analisis\ListarAnalisis\ListarAnalisisPorPersonaIdAD.cs" />
+    <Compile Include="Analisis\ListarAnalisis\ListarPersonasAnalizadasAD.cs" />
+    <Compile Include="Analisis\RealizarAnalisis\ActualizarRiesgoPersonaAD.cs" />
+    <Compile Include="Analisis\RealizarAnalisis\RealizarAnalisisAD.cs" />
+    <Compile Include="Analisis\ObtenerActividadesFinancierasDeLaPersona\ObtenerActividadFinancieraPersonaAD.cs" />
+    <Compile Include="Analisis\ObtenerArchivos\ObtenerArchivosAD.cs" />
+    <Compile Include="Analisis\ObtenerPalabrasClave\ObtenerPalabrasClaveAD.cs" />
+    <Compile Include="Analisis\ObtenerPersona\ObtenerPersonaAD.cs" />
+    <Compile Include="ArchivosDeAnalisis\DetallesArchivosDeAnalisis\DetallesArchivosDeAnalisisAD.cs" />
+    <Compile Include="ArchivosDeAnalisis\ListarArchivosDeAnalisis\ListarArchivosDeAnalisisAD.cs" />
+    <Compile Include="ArchivosDeAnalisis\RegistrarNuevosArchivosDeAnalisis\RegistrarNuevosArchivosDeAnalisisAD.cs" />
+    <Compile Include="Bitacora\BitacoraEventos\BitacoraEventosAD.cs" />
+    <Compile Include="Bitacora\ListarBitacoraEventosAD\ListarBitacoraEventosAD.cs" />
+    <Compile Include="Contexto.cs" />
+    <Compile Include="Entidades\ActividadFinancieraAD.cs" />
+    <Compile Include="Entidades\AnalisisAD.cs" />
+    <Compile Include="Entidades\ArchivosDeAnalisisAD.cs" />
+    <Compile Include="Entidades\BitacoraAD.cs" />
+    <Compile Include="Entidades\PalabraClaveAD.cs" />
+    <Compile Include="Entidades\PersonaAD.cs" />
+    <Compile Include="PalabraClave\AgregarPalabraClave\AgregarPalabraClaveAD.cs" />
+    <Compile Include="PalabraClave\EditarPalabraClave\EditarPalabraClaveAD.cs" />
+    <Compile Include="PalabraClave\ListarPalabraClave\ListarPalabraClaveAD.cs" />
+    <Compile Include="Persona\AgregarPersona\AgregarPersonaAD.cs" />
+    <Compile Include="Persona\EditarPersona\EditarPersonaAD.cs" />
+    <Compile Include="Persona\ListaPersona\ListarPersonaAD.cs" />
+    <Compile Include="Entidades\UsuarioActividadAD.cs" />
+    <Compile Include="Persona\ObtenerPersonaPorId\ObtenerPersonaPorIdAD.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="Entidades\PersonaActividadAD.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SolucionProyectoAbstracciones\SolucionProyectoAbstracciones.csproj">
+      <Project>{7c012127-6a39-4956-a040-3740fb2c4e95}</Project>
+      <Name>SolucionProyectoAbstracciones</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
+</Project>

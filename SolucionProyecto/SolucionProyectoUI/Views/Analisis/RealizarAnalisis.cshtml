@@ -1,0 +1,65 @@
+﻿@model SolucionProyectoAbstracciones.ModelosParaUI.Analisis.AnalisisDto
+
+@{
+    ViewBag.Title = "Resultado del Análisis";
+}
+
+<h2>Realizar Análisis</h2>
+
+<form action="@Url.Action("RealizarAnalisis", "Analisis")" method="post" class="form-inline mb-3">
+
+    <div class="form-group">
+        <label for="IdPersona" class="mr-2">ID de Persona:</label>
+        <input type="number" name="IdPersona" id="IdPersona" class="form-control mr-2" placeholder="Ingrese ID de Persona" required />
+    </div>
+    <button type="submit" class="btn btn-success">Realizar Análisis</button>
+</form>
+
+@if (Model != null)
+{
+    <div class="panel panel-default mt-4">
+        <div class="panel-heading">
+            <h4>Detalles del Análisis</h4>
+        </div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                <dt>Id Persona:</dt>
+                <dd>@Model.IdPersona</dd>
+
+                <dt>Cantidad de Archivos Analizados:</dt>
+                <dd>@Model.CantidadPalabrasClave</dd>
+
+                <dt>Cantidad de Coincidencias:</dt>
+                <dd>@Model.CantidadArchivos</dd>
+
+                <dt>Nivel de Riesgo:</dt>
+                <dd>
+                    @switch (Model.NivelDeRiesgo)
+                    {
+                        case 1:
+                            @:Bajo
+                            break;
+                        case 2:
+                            @:Medio
+                            break;
+                        case 3:
+                            @:Alto
+                            break;
+                        case 4:
+                            @:Crítico
+                            break;
+                    }
+                </dd>
+
+                <dt>Comentario:</dt>
+                <dd>@Model.Comentario</dd>
+            </dl>
+        </div>
+    </div>
+}
+
+<p>
+    @Html.ActionLink("PersonaUI", "ListaPersonas", "Persona", null, new { @class = "btn btn-primary" })
+</p>  <p>
+    @Html.ActionLink("Volver", "ListarAnalisis", "Analisis", null, new { @class = "btn btn-primary" })
+</p>

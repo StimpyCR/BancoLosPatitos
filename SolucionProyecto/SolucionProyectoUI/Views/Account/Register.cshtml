@@ -1,0 +1,163 @@
+﻿@model SolucionProyectoUI.Models.RegisterViewModel
+
+@{
+    ViewBag.Title = "Registrarse";
+}
+
+<main class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 col-xl-9">
+
+            <div class="card shadow-sm border-0 login-card overflow-hidden">
+                <div class="row g-0">
+
+                    <div class="col-md-6 d-none d-md-block login-side">
+                        <div class="login-brand p-4 h-100 d-flex flex-column justify-content-center align-items-center text-center">
+                            <img src="~/Content/Imagenes/logo_pato.svg"
+                                 class="img-fluid login-hero-img"
+                                 alt="Banco Los Patitos" />
+
+                            <h2 class="mt-4 mb-1 login-brand-title">Banco Los Patitos</h2>
+                            <div class="login-brand-subtitle">Sistema LAFT</div>
+
+                            <p class="mt-3 mb-0 login-brand-text">
+                                Cree una cuenta para acceder al sistema.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 login-form-col">
+                        <div class="p-4 p-lg-5">
+
+                            <h2 class="mb-1 fw-bold">Registrarse</h2>
+                            <p class="text-muted mb-4">Complete los datos para crear su cuenta</p>
+
+                            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { id = "registerForm", role = "form", autocomplete = "on" }))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                if (!ViewData.ModelState.IsValid)
+                                {
+                                    @Html.ValidationSummary("", new { @class = "alert alert-danger py-2 mb-3" })
+                                }
+
+                                <!-- Email -->
+                                <div class="mb-3">
+                                    @Html.LabelFor(m => m.Email, new { @class = "form-label fw-semibold" })
+                                    @Html.TextBoxFor(m => m.Email, new
+                                    {
+                                        @class = "form-control",
+                                        placeholder = "correo@ejemplo.com",
+                                        autocomplete = "username",
+                                        inputmode = "email"
+                                    })
+                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger small" })
+                                </div>
+
+                                <!-- Password con ojo -->
+                                <div class="mb-3">
+                                    @Html.LabelFor(m => m.Password, new { @class = "form-label fw-semibold" })
+
+                                    <div class="input-group">
+                                        @Html.PasswordFor(m => m.Password, new
+                                        {
+                                            @class = "form-control",
+                                            placeholder = "Cree una contraseña",
+                                            autocomplete = "new-password",
+                                            id = "PasswordInput"
+                                        })
+
+                                        <button class="btn btn-outline-secondary"
+                                                type="button"
+                                                id="btnTogglePassword"
+                                                aria-label="Mostrar u ocultar contraseña"
+                                                aria-pressed="false">
+                                            <i class="bi bi-eye" id="iconEyePassword" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger small" })
+                                </div>
+
+                                <!-- Confirm Password con ojo -->
+                                <div class="mb-3">
+                                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "form-label fw-semibold" })
+
+                                    <div class="input-group">
+                                        @Html.PasswordFor(m => m.ConfirmPassword, new
+                                        {
+                                            @class = "form-control",
+                                            placeholder = "Confirme su contraseña",
+                                            autocomplete = "new-password",
+                                            id = "ConfirmPasswordInput"
+                                        })
+
+                                        <button class="btn btn-outline-secondary"
+                                                type="button"
+                                                id="btnToggleConfirmPassword"
+                                                aria-label="Mostrar u ocultar confirmación de contraseña"
+                                                aria-pressed="false">
+                                            <i class="bi bi-eye" id="iconEyeConfirm" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+
+                                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger small" })
+                                </div>
+
+                                <!-- Rol -->
+                                <div class="mb-4">
+                                    @Html.LabelFor(m => m.Role, new { @class = "form-label fw-semibold" })
+                                    @Html.DropDownListFor(
+                                        m => m.Role,
+                                        new SelectList(new[] { "Admin", "Analista" }),
+                                        "-- Seleccione un rol --",
+                                        new { @class = "form-select" }
+                                    )
+                                    @Html.ValidationMessageFor(m => m.Role, "", new { @class = "text-danger small" })
+                                </div>
+
+                                <button type="submit" class="btn btn-primary w-100 py-2">
+                                    Registrarse
+                                </button>
+
+                                <div class="text-center mt-3">
+                                    @Html.ActionLink("Ya tengo cuenta — Iniciar sesión", "Login", "Account", null, new { @class = "small text-decoration-none" })
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        (function () {
+            function wireToggle(buttonId, inputId, iconId) {
+                var btn = document.getElementById(buttonId);
+                var input = document.getElementById(inputId);
+                var icon = document.getElementById(iconId);
+
+                if (!btn || !input || !icon) return;
+
+                btn.addEventListener("click", function () {
+                    var isPassword = input.getAttribute("type") === "password";
+                    input.setAttribute("type", isPassword ? "text" : "password");
+
+                    btn.setAttribute("aria-pressed", isPassword ? "true" : "false");
+
+                    icon.classList.remove(isPassword ? "bi-eye" : "bi-eye-slash");
+                    icon.classList.add(isPassword ? "bi-eye-slash" : "bi-eye");
+                });
+            }
+
+            wireToggle("btnTogglePassword", "PasswordInput", "iconEyePassword");
+            wireToggle("btnToggleConfirmPassword", "ConfirmPasswordInput", "iconEyeConfirm");
+        })();
+    </script>
+}

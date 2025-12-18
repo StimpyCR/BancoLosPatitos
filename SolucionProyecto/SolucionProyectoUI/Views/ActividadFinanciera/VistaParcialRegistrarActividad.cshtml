@@ -1,0 +1,83 @@
+﻿@model SolucionProyectoAbstracciones.ModelosParaUI.ActividadFinanciera.ActividadFinancieraDto
+
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm("VistaParcialRegistrarActividad",      
+                       "ActividadFinanciera",
+                       FormMethod.Post,
+                       new { id = "formCrearActividadFinanciera" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="row g-3">
+            <!-- Columna izquierda -->
+            <div class="col-md-6">
+
+                <!-- Nombre de la actividad -->
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.NombreActividadFinanciera, htmlAttributes: new { @class = "form-label" })
+                    @Html.TextBoxFor(
+                        m => m.NombreActividadFinanciera,
+                        new
+                        {
+                            @class = "form-control",
+                            maxlength = "30",
+                            placeholder = "Ingrese el nombre de la actividad financiera"
+                        })
+                    @Html.ValidationMessageFor(m => m.NombreActividadFinanciera, "", new { @class = "text-danger" })
+                    <small class="text-muted d-block mt-1">Máximo 30 caracteres</small>
+                </div>
+
+                <!-- Nivel de riesgo -->
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.NivelDeRiesgo, htmlAttributes: new { @class = "form-label" })
+                    @Html.DropDownListFor(
+                        m => m.NivelDeRiesgo,
+                        new SelectList(new[]
+                        {
+                            new { Value = 0, Text = "-- Seleccione un nivel de riesgo --" },
+                            new { Value = 1, Text = "Bajo" },
+                            new { Value = 2, Text = "Medio" },
+                            new { Value = 3, Text = "Alto" }
+                        }, "Value", "Text"),
+                        new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.NivelDeRiesgo, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+
+            <!-- Columna derecha -->
+            <div class="col-md-6">
+
+                <!-- Descripción -->
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.DescripcionActividadFinanciera, htmlAttributes: new { @class = "form-label" })
+                    @Html.TextAreaFor(
+                        m => m.DescripcionActividadFinanciera,
+                        new
+                        {
+                            @class = "form-control",
+                            rows = 4,
+                            maxlength = "150",
+                            placeholder = "Describa brevemente la actividad financiera"
+                        })
+                    @Html.ValidationMessageFor(m => m.DescripcionActividadFinanciera, "", new { @class = "text-danger" })
+                    <small class="text-muted d-block mt-1">Máximo 150 caracteres</small>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Botones -->
+        <div class="text-end mt-3">
+            <button type="submit" class="btn btn-primary">Registrar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+}
+

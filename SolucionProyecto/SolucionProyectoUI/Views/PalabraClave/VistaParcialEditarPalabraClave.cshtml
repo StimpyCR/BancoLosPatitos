@@ -1,0 +1,62 @@
+﻿@model SolucionProyectoAbstracciones.ModelosParaUI.PalabraClave.PalabraClaveDto
+
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm(
+    "VistaParcialEditarPalabraClave",
+    "PalabraClave",
+    new { id = Model.IdPalabra },               
+    FormMethod.Post,
+    new { id = "formEditarPalabraClave" }))
+{
+    @Html.AntiForgeryToken()
+
+    @* Campos ocultos *@
+    @Html.HiddenFor(m => m.IdPalabra)
+    @Html.HiddenFor(m => m.FechaDeRegistro)
+    @Html.HiddenFor(m => m.FechaDeModificacion)
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="row g-3">
+            <div class="col-md-12">
+                <!-- Palabra -->
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.Palabra, htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(m => m.Palabra, new { htmlAttributes = new { @class = "form-control", placeholder = "Ingrese la palabra clave" } })
+                    @Html.ValidationMessageFor(m => m.Palabra, "", new { @class = "text-danger" })
+                </div>
+
+                <!-- Orden -->
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.Orden, htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(m => m.Orden, new { htmlAttributes = new { @class = "form-control", placeholder = "Ingrese el orden de visualización" } })
+                    @Html.ValidationMessageFor(m => m.Orden, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <!-- Estado (activo / inactivo) -->
+        <div class="col-md-6">
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Estado, htmlAttributes: new { @class = "form-label d-block" })
+                <div class="form-check form-switch">
+                    @Html.CheckBoxFor(m => m.Estado, new { @class = "form-check-input", role = "switch" })
+                    <span class="ms-2">
+                        @(Model.Estado ? "Activo" : "Inactivo")
+                    </span>
+                </div>
+                @Html.ValidationMessageFor(m => m.Estado, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <!-- Botones -->
+        <div class="text-end mt-3">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+}

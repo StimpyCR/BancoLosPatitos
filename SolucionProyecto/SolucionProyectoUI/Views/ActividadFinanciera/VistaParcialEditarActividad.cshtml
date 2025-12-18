@@ -1,0 +1,103 @@
+﻿@model SolucionProyectoAbstracciones.ModelosParaUI.ActividadFinanciera.ActividadFinancieraDto
+
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm(
+    "VistaParcialEditarActividad",
+    "ActividadFinanciera",
+    new { id = Model.IdActividadFinanciera },
+    FormMethod.Post,
+    new { id = "formEditarActividadFinanciera" }
+))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.IdActividadFinanciera)
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="row g-3">
+            <!-- Columna izquierda -->
+            <div class="col-md-6">
+
+                <!-- Nombre actividad -->
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.NombreActividadFinanciera, htmlAttributes: new { @class = "form-label" })
+                    @Html.TextBoxFor(
+                        m => m.NombreActividadFinanciera,
+                        new
+                        {
+                            @class = "form-control",
+                            maxlength = "30",
+                            placeholder = "Ingrese el nombre de la actividad financiera"
+                        })
+                    @Html.ValidationMessageFor(m => m.NombreActividadFinanciera, "", new { @class = "text-danger" })
+                    <small class="text-muted d-block mt-1">Máximo 30 caracteres</small>
+                </div>
+
+                <!-- Nivel de riesgo (solo lectura) -->
+                <div class="mb-3">
+                    @Html.Label("Nivel de Riesgo", htmlAttributes: new { @class = "form-label" })
+                    <input type="text"
+                           class="form-control"
+                           value="@(Model.NivelDeRiesgo == 1
+                                   ? "Bajo"
+                                   : Model.NivelDeRiesgo == 2
+                                       ? "Medio"
+                                       : Model.NivelDeRiesgo == 3
+                                           ? "Alto"
+                                           : "N/A")"
+                           disabled
+                           readonly />
+                    <small class="text-muted d-block mt-1">
+                        Este valor no se puede modificar desde esta pantalla.
+                    </small>
+                </div>
+
+            </div>
+
+            <!-- Columna derecha -->
+            <div class="col-md-6">
+
+                <!-- Descripción -->
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.DescripcionActividadFinanciera, htmlAttributes: new { @class = "form-label" })
+                    @Html.TextAreaFor(
+                        m => m.DescripcionActividadFinanciera,
+                        new
+                        {
+                            @class = "form-control",
+                            rows = 4,
+                            maxlength = "150",
+                            placeholder = "Describa brevemente la actividad financiera"
+                        })
+                    @Html.ValidationMessageFor(m => m.DescripcionActividadFinanciera, "", new { @class = "text-danger" })
+                    <small class="text-muted d-block mt-1">Máximo 150 caracteres</small>
+                </div>
+
+                <!-- Estado -->
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.Estado, htmlAttributes: new { @class = "form-label" })
+                    @Html.DropDownListFor(
+                        m => m.Estado,
+                        new SelectList(new[]
+                        {
+                            new { Value = true,  Text = "Activo" },
+                            new { Value = false, Text = "Inactivo" }
+                        }, "Value", "Text", Model.Estado),
+                        new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Estado, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Botones -->
+        <div class="text-end mt-3">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+}

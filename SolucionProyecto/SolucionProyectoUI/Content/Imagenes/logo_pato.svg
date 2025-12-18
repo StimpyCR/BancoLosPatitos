@@ -1,0 +1,48 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">Logo Banco Los Patitos</title>
+  <desc id="desc">Pato elegante con sombrero, monóculo y corbata dentro de un sello institucional</desc>
+
+  <!-- Sello externo -->
+  <circle cx="32" cy="32" r="30" fill="#003C76"></circle>
+  <circle cx="32" cy="32" r="26" fill="none" stroke="#FFDD57" stroke-width="2"></circle>
+
+  <!-- Grupo del pato con contorno fino -->
+  <g stroke="#E7EBF2" stroke-width="0.6" stroke-linejoin="round">
+
+    <!-- Cuerpo -->
+    <ellipse cx="36" cy="37" rx="13" ry="8.5" fill="#002B5B"></ellipse>
+
+    <!-- Cola -->
+    <path d="M44 34 L50 36 L44 40 Z" fill="#002B5B"></path>
+
+    <!-- Cabeza -->
+    <circle cx="26" cy="28" r="7" fill="#002B5B"></circle>
+
+  </g>
+
+  <!-- Pico SIN borde -->
+  <polygon points="22,27 14,29 22,31" fill="#FFDD57"></polygon>
+
+  <!-- Corbata SIN borde -->
+  <polygon points="33,34 36,34 34.5,37" fill="#FFDD57"></polygon>
+  <polygon points="34.5,37 32.8,40.5 34.5,39.7 36.2,40.5" fill="#FFDD57"></polygon>
+
+  <!-- Monóculo fino -->
+  <circle cx="27.2" cy="26.5" r="2.2" fill="none" stroke="#FFDD57" stroke-width="0.55"></circle>
+
+  <!-- Ojo -->
+  <circle cx="27.2" cy="26.5" r="0.9" fill="#FFFFFF"></circle>
+  <circle cx="27.2" cy="26.5" r="0.45" fill="#002B5B"></circle>
+
+  <!-- Cadena del monóculo -->
+  <path d="M28.3 28.3 C 29 30.0, 29.5 31.8, 29.9 33.6" fill="none" stroke="#FFDD57" stroke-width="0.6" stroke-linecap="round"></path>
+
+  <!-- Sombrero (top hat) -->
+  <ellipse cx="26" cy="21" rx="7" ry="1.4" fill="#001933"></ellipse>
+  <rect x="22" y="15" width="8" height="6" rx="1" fill="#002B5B"></rect>
+  <rect x="22.3" y="18" width="7.4" height="1.6" fill="#FFDD57"></rect>
+
+  <!-- Highlight moderno -->
+  <path d="M14 20 C 20 12, 28 9, 36 10" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="1.8" stroke-linecap="round"></path>
+</svg>

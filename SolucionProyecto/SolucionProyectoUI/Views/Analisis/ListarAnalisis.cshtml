@@ -1,0 +1,64 @@
+﻿@model IEnumerable<SolucionProyectoAbstracciones.ModelosParaUI.Analisis.PersonaAnalizadaDto>
+
+@{
+    ViewBag.Title = "Personas Analizadas";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Personas Analizadas</h2>
+</div>
+
+<div class="table-responsive">
+    <table id="tablaPersonasAnalizadas" class="table table-striped table-hover w-100">
+        <thead>
+            <tr>
+                <th>Tipo de Identificación</th>
+                <th>Nombre</th>
+                <th>Primer Apellido</th>
+                <th>Segundo Apellido</th>
+                <th>Estado de Riesgo Actual</th>
+                <th>Fecha del Último Análisis</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @(item.TipoIdentificacion == 1
+                            ? "Física"
+                            : item.TipoIdentificacion == 2
+                                ? "Jurídica"
+                                : "Desconocido")
+                    </td>
+
+                    <td>@item.Nombre</td>
+                    <td>@item.PrimerApellido</td>
+                    <td>@item.SegundoApellido</td>
+
+                    <td>@item.EstadoDeRiesgo</td>
+
+                    <td>@item.FechaUltimoAnalisis</td>
+
+                    <td>
+                        <div class="btn-group btn-group-sm" role="group">
+                            @Html.ActionLink(
+                                "📄 Ver análisis",
+                                "ListarAnalisisPorPersona",
+                                "Analisis",
+                                new { idPersona = item.IdPersona },
+                                new { @class = "btn btn-primary btn-sm" }
+                            )
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/Analisis/ListarAnalisis/ListarPersonasAnalizadas.js"></script>
+}

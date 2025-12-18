@@ -1,0 +1,101 @@
+﻿@model IEnumerable<SolucionProyectoAbstracciones.ModelosParaUI.ActividadFinanciera.ActividadFinancieraDto>
+
+@{
+    ViewBag.Title = "ListaDeActividadFinanciera";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Lista de Actividades Financieras</h2>
+    <button type="button" class="btn btn-primary mb-0" id="btnNuevaActividad">
+        <span class="icon">＋</span>
+        Registrar Actividad Financiera
+    </button>
+</div>
+
+<div class="table-responsive">
+    <table id="tablaActividades" class="table table-striped table-hover w-100">
+        <thead>
+            <tr>
+                <th>Actividad Financiera</th>
+                <th>Nivel de Riesgo</th>
+                <th>Descripción</th>
+                <th>Fecha de Registro</th>
+                <th>@Html.DisplayNameFor(model => model.Estado)</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.NombreActividadFinanciera)</td>
+                    <td>
+                        @(item.NivelDeRiesgo == 1
+                            ? "Bajo"
+                            : item.NivelDeRiesgo == 2
+                            ? "Medio"
+                            : item.NivelDeRiesgo == 3
+                            ? "Alto"
+                            : "N/A")
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.DescripcionActividadFinanciera)</td>
+                    <td>@Html.DisplayFor(modelItem => item.FechaDeRegistro)</td>
+                    <td>@(item.Estado == true ? "Activo" : "Inactivo")</td>
+                    <td>
+                        <div class="btn-group btn-group-sm" role="group">
+                            <a href="#"
+                               class="btn btn-success btn-editar-actividad"
+                               data-id="@item.IdActividadFinanciera">
+                                ✏️ Editar
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal CREAR ACTIVIDAD -->
+<div class="modal fade" id="modalActividad" tabindex="-1" aria-labelledby="modalActividadTitulo" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header text-white"
+                 style="background-color:#002B5B; border-bottom:none;">
+                <h3 class="modal-title mb-0">Registrar Actividad Financiera</h3>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Cerrar"
+                        style="filter:brightness(0) invert(1);"></button>
+            </div>
+
+            <div class="modal-body" style="background-color: #e3e7ec;">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal EDITAR ACTIVIDAD -->
+<div class="modal fade" id="modalEditarActividad" tabindex="-1" aria-labelledby="modalEditarActividadLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header text-white"
+                 style="background-color:#002B5B; border-bottom:none;">
+                <h3 class="modal-title mb-0">Editar Actividad</h3>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Cerrar"
+                        style="filter:brightness(0) invert(1);"></button>
+            </div>
+
+            <div class="modal-body" style="background-color: #e3e7ec;">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/ActividadFinanciera/ListarActividadesFinancieras/ListarActividadesFinancieras.js"></script>
+    <script src="~/Scripts/ActividadFinanciera/CrearActividadFinanciera/CrearActividadFinanciera.js"></script>
+    <script src="~/Scripts/ActividadFinanciera/EditarActividadFinanciera/EditarActividadFinanciera.js"></script>
+}

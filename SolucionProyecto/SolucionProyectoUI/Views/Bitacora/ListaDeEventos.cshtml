@@ -1,0 +1,54 @@
+﻿@model IEnumerable<SolucionProyectoAbstracciones.ModelosParaUI.Bitacora.BitacoraDto>
+
+@{
+    ViewBag.Title = "Bitácora de Eventos";
+}
+
+<h2 class="mb-3">Bitácora de Eventos</h2>
+
+<div class="table-responsive">
+    <table id="tablaBitacora" class="table table-striped table-hover w-100">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.idEvento)</th>
+                <th>@Html.DisplayNameFor(model => model.tablaDeEvento)</th>
+                <th>@Html.DisplayNameFor(model => model.tipoDeEvento)</th>
+                <th>@Html.DisplayNameFor(model => model.fechaDeEvento)</th>
+                <th>@Html.DisplayNameFor(model => model.descripcionDeEvento)</th>
+                <th>@Html.DisplayNameFor(model => model.stackTrace)</th>
+                <th>@Html.DisplayNameFor(model => model.datosAnteriores)</th>
+                <th>@Html.DisplayNameFor(model => model.datosPosteriores)</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.idEvento</td>
+                    <td>@item.tablaDeEvento</td>
+                    <td>@item.tipoDeEvento</td>
+                    <td>@item.fechaDeEvento.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                    <td>@item.descripcionDeEvento</td>
+
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.stackTrace))
+                        {
+                            <details>
+                                <summary>Ver StackTrace</summary>
+                                <pre style="white-space: pre-wrap;">@item.stackTrace</pre>
+                            </details>
+                        }
+                    </td>
+
+                    <td>@item.datosAnteriores</td>
+                    <td>@item.datosPosteriores</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/Bitacora/ListarEventosBitacora/ListarEventosBitacora.js"></script>
+}
